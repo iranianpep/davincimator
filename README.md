@@ -1,6 +1,8 @@
 # Davincimator
 Automate importing media files to Davinci Resolve using `DaVinciResolveScript` and the [documentation](https://resolvedevdoc.readthedocs.io/en/latest/index.html).
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/d006387c059d13beb9ac/maintainability)](https://codeclimate.com/github/iranianpep/davincimator/maintainability)
+
 ## Requirements
 
 - Python 3.9
@@ -37,12 +39,19 @@ Import media files from a directory to a project:
 python __main__.py -p YOUR_PROJECT_NAME -d PATH_TO_DIR
 ```
 
+Import media files from a directory to a project based on a template project:
+```
+python __main__.py -p YOUR_PROJECT_NAME -d PATH_TO_DIR -b PATH_TO_TEMPLATE_PROJECT
+```
+
+Make sure the timeline name, matches the timeline name in the new project (for example `master`)
+
 Copy the media files to a directory (`PATH_TO_BASE_DIR/YOUR_PROJECT_NAME`) and then import them from the new place to a project:
 ```
 python __main__.py -p YOUR_PROJECT_NAME -d PATH_TO_BASE_DIR -c COPY_TO_DIR
 ```
 
-You can also set the timeline name using `-t` flag.
+You can also set the timeline name using `-t` flag (default value is `master`).
 
 ## TODO
 - Test on Windows and Linux. It is only tested on Mac OS X

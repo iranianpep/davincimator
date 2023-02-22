@@ -32,9 +32,10 @@ def is_davinci_open() -> bool:
 
 def get_args():
     parser = argparse.ArgumentParser(description='Create DaVinci Resolve project and import media files')
-    parser.add_argument('-f', '--file', help='Source media file')
-    parser.add_argument('-d', '--dir', help='Source media directory including media files')
+    parser.add_argument('-b', '--base-project', help='Base project path to create a new one based on that')
     parser.add_argument('-c', '--copy-to', help='Copy media files to this directory if specified')
+    parser.add_argument('-d', '--dir', help='Source media directory including media files')
+    parser.add_argument('-f', '--file', help='Source media file')
     parser.add_argument('-p', '--project', required=True, help='DaVinci Resolve existing or new project name to create')
     parser.add_argument('-t', '--timeline', help='DaVinci Resolve existing or new timeline to create', default='master')
     return parser.parse_args()
@@ -110,11 +111,19 @@ def main() -> None:
         files = tmp_files
 
     project_name = args.project
-    print(Fore.BLUE + f"Creating or loading existing '{project_name}' project ...", end=' ')
-    project = davincimator.get_project_by_name(args.project)
-    print_done()
+    if args.base_project:
+        if not os.path.isfile(args.base_project):
+            print(Fore.RED + f"Project path '{args.base_project}' does not exist")
+            sys.exit()
 
-    davincimator.setFPSforProjectTimline(project, files)
+        davincimator.project_manager.ImportProject(args.base_project, project_name)
+        project = davincimator.project_manager.LoadProject(project_name)
+    else:
+        print(Fore.BLUE + f"Creating or loading existing '{project_name}' project ...", end=' ')
+        project = davincimator.get_project_by_name(args.project)
+        print_done()
+
+        davincimator.setFPSforProjectTimline(project, files)
 
     print(Fore.BLUE + f"Adding files to the timeline '{args.timeline}' ...", end=' ')
     davincimator.add_files_to_timeline(project, args.timeline, files)
