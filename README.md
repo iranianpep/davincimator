@@ -26,6 +26,11 @@ pipenv install
 Create your own `.env` based on `.env.sample` depending on OS. The sample one is based for Mac OS X.
 `MEDIA_EXTENSIONS_TO_IMPORT` is a whitelist media if you import files from a directory to a project using `-d` flag
 
+Run:
+```
+pipenv shell
+```
+
 ### Run the script
 First make sure Davinci Resolve is open and running before running any script. Some examples are:
 
