@@ -56,6 +56,12 @@ Copy the media files to a directory (`PATH_TO_BASE_DIR/YOUR_PROJECT_NAME`) and t
 python __main__.py -p YOUR_PROJECT_NAME -d PATH_TO_BASE_DIR -c COPY_TO_DIR
 ```
 
+Another example:
+```
+pipenv run python __main__.py -p PROJECT_NAME -f FILE_NAME -b BASE_PROJECT_FILE -c COPY_TO_DIR
+```
+
+
 You can also set the timeline name using `-t` flag (default value is `master`).
 
 ## TODO
